@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 {{ viewbox.width }} {{ viewbox.height }}" xmlns="http://www.w3.org/2000/svg">
+    {% for b in beads %}
+        <rect x="{{ b.x }}" y="{{ b.y }}" width="{{ b.width }}" height="{{ b.height }}" style="fill: rgba{{ b.rgba }}; stroke: rgb(0, 0, 0);" />
+    {% endfor %}
+</svg>
