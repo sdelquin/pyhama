@@ -28,14 +28,13 @@ def process(pegboard_width, pegboard_height, beadsize, input_filename):
     beads = []
     for x in range(pegboard_width):
         for y in range(pegboard_height):
-            rgba = resized_im.getpixel((x, y))
-            try:
-                rgb, alpha = rgba[:3], rgba[3]
-                if alpha > 0:
-                    alpha = 1
-            except:
-                rgb = rgba
+            info = resized_im.getpixel((x, y))
+            if len(info) == 3:
+                rgb = info
                 alpha = 1
+            else:
+                rgb, alpha = info[:3], info[3]
+                alpha = round(alpha / 100)
             rgba = (*rgb, alpha)
             beads.append({
                 "x": x * beadsize,
@@ -62,7 +61,7 @@ def process(pegboard_width, pegboard_height, beadsize, input_filename):
     cairosvg.svg2png(url=PEGBOARD_RENDERED, write_to=PEGBOARD_OUTPUT)
     print(
         green("Done! ") +
-        "Hama beads template in: " +
+        "Hama beads output template in: " +
         bold(magenta(PEGBOARD_OUTPUT))
     )
 
