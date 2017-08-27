@@ -25,10 +25,9 @@ PEGBOARD_OUTPUT = "pegboard.png"
 def process(pegboard_width, pegboard_height, beadsize, input_filename):
     im = PIL.Image.open(input_filename)
     resized_im = im.resize((pegboard_width, pegboard_height))
-    width, height = resized_im.size
     beads = []
-    for x in range(width):
-        for y in range(height):
+    for x in range(pegboard_width):
+        for y in range(pegboard_height):
             rgba = resized_im.getpixel((x, y))
             try:
                 rgb, alpha = rgba[:3], rgba[3]
@@ -50,8 +49,10 @@ def process(pegboard_width, pegboard_height, beadsize, input_filename):
         "height": pegboard_height * beadsize
     }
 
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath="."))
-    template = env.get_template(PEGBOARD_TEMPLATE)
+    jinja_env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(searchpath=".")
+    )
+    template = jinja_env.get_template(PEGBOARD_TEMPLATE)
     rendered_template = template.render(
         viewbox=viewbox,
         beads=beads
