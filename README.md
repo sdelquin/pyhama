@@ -2,6 +2,15 @@
 
 Tool written in Python to convert an image into a *pegboard* and using it as a template for *Hama Beads*.
 
+## Example
+
+~~~bash
+>> python pyhama python_logo.png
+Done! Hama beads output template in: pegboard.png
+~~~
+
+![](workflow.png)
+
 ## Installation
 
 ~~~bash
