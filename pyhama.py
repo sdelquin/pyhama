@@ -5,8 +5,8 @@ Usage:
 
 Options:
     -h --help           Show this screen
-    --pb_width=<pbw>    Pegboard size (measured in beads) [default: 15]
-    --pb_height=<pbh>   Pegboard size (measured in beads) [default: 15]
+    --pb_width=<pbw>    Pegboard size (measured in beads) [default: 18]
+    --pb_height=<pbh>   Pegboard size (measured in beads) [default: 18]
     --beadsize=<bs>     Bead size (measured in pixels) [default: 30]
     INPUT               Input image
 """
@@ -25,27 +25,28 @@ PEGBOARD_OUTPUT = "pegboard.png"
 def process(pegboard_width, pegboard_height, beadsize, input_filename):
     im = PIL.Image.open(input_filename)
     resized_im = im.resize((pegboard_width, pegboard_height))
+    radius = beadsize / 2
     beads = []
     for x in range(pegboard_width):
         for y in range(pegboard_height):
             info = resized_im.getpixel((x, y))
             if len(info) == 3:
-                rgb = info
-                alpha = 1
+                rgb, alpha = info, 1
             else:
-                rgb, alpha = info[:3], info[3]
-                alpha = round(alpha / 100)
+                rgb, alpha = info[:3], round(info[3] / 100)
             rgba = (*rgb, alpha)
             beads.append({
-                "x": x * beadsize,
-                "y": y * beadsize,
-                "width": beadsize,
-                "height": beadsize,
+                "x": (x * beadsize) + radius,
+                "y": (y * beadsize) + radius,
                 "rgba": rgba
             })
     viewbox = {
         "width": pegboard_width * beadsize,
         "height": pegboard_height * beadsize
+    }
+    radius = {
+        "major": radius,
+        "minor": radius * 0.4
     }
 
     jinja_env = jinja2.Environment(
@@ -54,6 +55,7 @@ def process(pegboard_width, pegboard_height, beadsize, input_filename):
     template = jinja_env.get_template(PEGBOARD_TEMPLATE)
     rendered_template = template.render(
         viewbox=viewbox,
+        radius=radius,
         beads=beads
     )
     with open(PEGBOARD_RENDERED, "w") as f:
