@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+cairosvg = "*"
+pillow = "*"
+"jinja2" = "*"
+docopt = "*"
+fabulous = "*"
+pytest = "*"
+
+[dev-packages]
+ipython = "*"
+"flake8" = "*"
+rope = "*"
+"autopep8" = "*"
+
+[requires]
+python_version = "3.6"

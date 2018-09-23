@@ -3,3 +3,4 @@ pegboard.png
 *.pyc
 cache
 .DS_Store
+.vscode

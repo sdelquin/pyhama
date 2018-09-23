@@ -2,26 +2,17 @@
 
 Tool written in Python to convert an image into a *pegboard* and using it as a template for *Hama Beads*.
 
-## Example
-
-~~~bash
->> python pyhama python_logo.png
-Done! Hama beads output template in: pegboard.png
-~~~
-
-![](workflow.png)
-
 ## Installation
 
 ~~~bash
->> mkvirtualenv pyhama
->> workon pyhama
->> install -r requirements.txt
->> cd pyhama
->> pyhama -h
+$ pipenv install
 ~~~
 
 ## Usage
+
+~~~console
+$ pipenv run python pyhama -h
+~~~
 
 ~~~
 PyHama
@@ -37,8 +28,17 @@ Options:
     INPUT               Input image
 ~~~
 
+## Example
+
+~~~bash
+$ pipenv run python pyhama python_logo.png
+Done! Hama beads output template in: pegboard.png
+~~~
+
+![](workflow.png)
+
 ## Test
 
 ~~~bash
->> pytest
+$ pytest
 ~~~
